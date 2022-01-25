@@ -1,23 +1,23 @@
 #include <stdio.h>
 #include <assert.h>
 
-int printColorMap();
-ColorPair GetColorFromPairNumber(int pairNumber);
-void CopyColorPairs(int pairNumber, const char* majorColourIndex, const char* minorColourIndex);
-int printColorMap_Stub();
-
-const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
-const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
-
-int numberOfMajorColors = sizeof(majorColor) / sizeof(majorColor[0]);
-int numberOfMinorColors = sizeof(minorColor) / sizeof(minorColor[0]);
-
 typedef struct 
 {
     int pairNumber;
     const char* majorColour;
     const char* minorColour;  
 }ColorPair;
+
+const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
+const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
+
+int printColorMap();
+ColorPair GetColorFromPairNumber(int pairNumber);
+void CopyColorPairs(int pairNumber, const char* majorColourIndex, const char* minorColourIndex);
+int printColorMap_Stub();
+
+int numberOfMajorColors = sizeof(majorColor) / sizeof(majorColor[0]);
+int numberOfMinorColors = sizeof(minorColor) / sizeof(minorColor[0]);
 
 ColorPair GetColorFromPairNumber(int pairNumber) {
     ColorPair colorPair;
