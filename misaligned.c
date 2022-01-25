@@ -12,7 +12,7 @@ const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
 int numberOfMajorColors = sizeof(majorColor) / sizeof(majorColor[0]);
 int numberOfMinorColors = sizeof(minorColor) / sizeof(minorColor[0]);
 
-struct ColourPair
+struct ColorPair 
 {
     int pairNumber;
     char majorColour[25];
@@ -36,7 +36,7 @@ ColourPair CopyColourPairs(int pairNumber, int majorColourIndex, int minorColour
 }
 
 int printColorMap_Stub() {
-    ColourPair colorPair;
+    ColorPair  colorPair;
     int i = 0, j = 0;
     for(i = 0; i < 5; i++) {
         for(j = 0; j < 5; j++) {
