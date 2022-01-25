@@ -57,7 +57,7 @@ int main() {
     printf("%d alerts failed.\n", alertFailureCount);
     networkAlertFuncPointer = networkAlertStub;
     alertInCelcius(400.5,networkAlertFuncPointer);
-    assert(AlertStubCalled == true);
+    assert(AlertStubCalled == true); /* Stub is correct so this assert check passes */
     printf("All is well (maybe!)\n");
     return 0;
 }
