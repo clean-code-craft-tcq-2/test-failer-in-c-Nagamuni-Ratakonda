@@ -3,7 +3,7 @@
 
 int printColorMap();
 ColorPair GetColorFromPairNumber(int pairNumber);
-ColourPair CopyColourPairs(int pairNumber, int majorColourIndex, int minorColourIndex);
+ColorPair  CopyColorPairs(int pairNumber, int majorColourIndex, int minorColourIndex);
 int printColorMap_Stub();
 
 const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
@@ -27,7 +27,7 @@ ColorPair GetColorFromPairNumber(int pairNumber) {
     return colorPair;
 }
 
-ColourPair CopyColourPairs(int pairNumber, int majorColourIndex, int minorColourIndex)
+ColorPair  CopyColorPairs(int pairNumber, int majorColourIndex, int minorColourIndex)
 {
     ColorPair colorPair = getColorInfoFromPairNumber(pairNumber);
     assert(colorPair.pairNumber == pairNumber);
@@ -40,7 +40,7 @@ int printColorMap_Stub() {
     int i = 0, j = 0;
     for(i = 0; i < 5; i++) {
         for(j = 0; j < 5; j++) {
-            colorPair = CopyColourPairs(i,j);
+            colorPair = CopyColorPairs(i,j);
             printf("%d | %s | %s\n", i * 5 + j, majorColor[i], minorColor[i]);
         }
     }
