@@ -10,9 +10,14 @@ int alertFailureCount = 0;
 bool AlertStubCalled = false;
 
 int networkAlertStub(float celcius) {
+    int networkAlertStubResult = 500;
     
-    /* Stub function definition here */
+    if(celcius == 200)
+    {
+        networkAlertStubResult = 200;
+    }
     AlertStubCalled = true;
+    return networkAlertStubResult;
 
 }
 
@@ -43,14 +48,16 @@ void alertInCelcius(float farenheit,int (*networkAlertFuncPointer) (float)) {
 }
 
 int main() {
-    int (*networkAlertFuncPointer)(float) = networkAlert;
+    int (*networkAlertFuncPointer)(float);
+    networkAlertFuncPointer = networkAlert;
     alertInCelcius(400.5,networkAlertFuncPointer);
     assert(alertFailureCount==1);
     alertInCelcius(303.6,networkAlertFuncPointer);
     assert(alertFailureCount==2);
     printf("%d alerts failed.\n", alertFailureCount);
-    int (*networkAlertFuncPointer)(float) = networkAlertStub;
+    networkAlertFuncPointer = networkAlertStub;
     alertInCelcius(400.5,networkAlertFuncPointer);
+    assert(AlertStubCalled == true);
     printf("All is well (maybe!)\n");
     return 0;
 }
