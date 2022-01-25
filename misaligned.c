@@ -3,7 +3,7 @@
 
 int printColorMap();
 ColorPair GetColorFromPairNumber(int pairNumber);
-ColorPair  CopyColorPairs(int pairNumber, int majorColourIndex, int minorColourIndex);
+void CopyColorPairs(int pairNumber, int majorColourIndex, int minorColourIndex);
 int printColorMap_Stub();
 
 const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
@@ -22,14 +22,14 @@ struct ColorPair
 ColorPair GetColorFromPairNumber(int pairNumber) {
     ColorPair colorPair;
     colorPair.pairNumber = pairNumber;
-    colorPair.majColor = majorColor[(pairNumber / numberOfMajorColors)];
-    colorPair.minColor = minorColor[(pairNumber % numberOfMinorColors)];
+    colorPair.majorColour = majorColor[(pairNumber / numberOfMajorColors)];
+    colorPair.minorColour = minorColor[(pairNumber % numberOfMinorColors)];
     return colorPair;
 }
 
-ColorPair  CopyColorPairs(int pairNumber, int majorColourIndex, int minorColourIndex)
+void CopyColorPairs(int pairNumber, int majorColourIndex, int minorColourIndex)
 {
-    ColorPair colorPair = getColorInfoFromPairNumber(pairNumber);
+    ColorPair colorPair = GetColorFromPairNumber(pairNumber);
     assert(colorPair.pairNumber == pairNumber);
     assert(colorPair.majorColour == majorColourIndex);
     assert(colorPair.minorColour == minorColourIndex);  
@@ -40,7 +40,7 @@ int printColorMap_Stub() {
     int i = 0, j = 0;
     for(i = 0; i < 5; i++) {
         for(j = 0; j < 5; j++) {
-            colorPair = CopyColorPairs(i,j);
+            CopyColorPairs(i * 5 + j,i,j);
             printf("%d | %s | %s\n", i * 5 + j, majorColor[i], minorColor[i]);
         }
     }
@@ -58,11 +58,13 @@ int printColorMap() {
 }
 
 int main() {
-    int (*Fn_Ptr)() = printColorMap;
-    int result = Fn_Ptr();
+    int (*PrintColorMapFuncPtr)();
+    int result;
+    PrintColorMapFuncPtr = printColorMap;
+    result = PrintColorMapFuncPtr();
     assert(result == 25);
-    int (*Fn_Ptr)() = printColorMap_Stub;
-    int result = Fn_Ptr();
+    PrintColorMapFuncPtr = printColorMap_Stub;
+    result = PrintColorMapFuncPtr();
     assert(result == 25);
     printf("All is well (maybe!)\n");
     return 0;
