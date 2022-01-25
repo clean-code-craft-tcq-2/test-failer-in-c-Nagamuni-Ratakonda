@@ -39,7 +39,7 @@ int printColorMap_Stub() {
     int i = 0, j = 0;
     for(i = 0; i < 5; i++) {
         for(j = 0; j < 5; j++) {
-            CopyColorPairs(i * 5 + j,i,j);
+            CopyColorPairs(i * 5 + j,majorColor[i], minorColor[i]);
             printf("%d | %s | %s\n", i * 5 + j, majorColor[i], minorColor[i]);
         }
     }
