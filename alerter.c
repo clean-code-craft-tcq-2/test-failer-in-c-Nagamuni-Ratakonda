@@ -3,7 +3,7 @@
 
 
 int networkAlert(float celcius);
-float ConvertFarenHeitToCelcius(float farenheit)
+float ConvertFarenHeitToCelcius(float farenheit);
 int networkAlertStub(float celcius);
 float ConvertFarenHeitToCelciusStub(float farenheit);
 void alertInCelcius(float farenheit, float (*ConvertFarenHeitToCelciusFunPtr)(float), int (*networkAlertFuncPointer) (float));
