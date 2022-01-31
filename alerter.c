@@ -64,14 +64,14 @@ int main() {
     int (*networkAlertFuncPointer)(float);
     ConvertFarenHeitToCelciusFunPtr = ConvertFarenHeitToCelcius;
     networkAlertFuncPointer = networkAlert;
-    alertInCelcius(400.5,networkAlertFuncPointer);
+    alertInCelcius(400.5,ConvertFarenHeitToCelciusFunPtr,networkAlertFuncPointer);
     assert(alertFailureCount==1);
     alertInCelcius(303.6,networkAlertFuncPointer);
     assert(alertFailureCount==2);
     printf("%d alerts failed.\n", alertFailureCount);
     ConvertFarenHeitToCelciusFunPtr = ConvertFarenHeitToCelciusStub;
     networkAlertFuncPointer = networkAlertStub;
-    alertInCelcius(400.5,networkAlertFuncPointer);
+    alertInCelcius(400.5,ConvertFarenHeitToCelciusFunPtr,networkAlertFuncPointer);
     assert(AlertStubCalled == true); /* Stub is correct so this assert check passes */
     printf("All is well (maybe!)\n");
     return 0;
