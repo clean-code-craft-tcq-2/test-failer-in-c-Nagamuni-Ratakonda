@@ -3,8 +3,10 @@
 
 
 int networkAlert(float celcius);
+float ConvertFarenHeitToCelcius(float farenheit)
 int networkAlertStub(float celcius);
-void alertInCelcius(float farenheit,int (*networkAlertFuncPointer) (float));
+float ConvertFarenHeitToCelciusStub(float farenheit);
+void alertInCelcius(float farenheit, float (*ConvertFarenHeitToCelciusFunPtr)(float), int (*networkAlertFuncPointer) (float));
     
 int alertFailureCount = 0;
 bool AlertStubCalled = false;
@@ -21,6 +23,11 @@ int networkAlertStub(float celcius) {
 
 }
 
+float ConvertFarenHeitToCelciusStub(float farenheit) {
+    float celcius = (farenheit - 32) * 5 / 9;
+    return celcius;
+}
+
 int networkAlert(float celcius) {
     
     int networkAlertResult = 500; /*Initialize return value to 500(not-ok) */
@@ -35,8 +42,13 @@ int networkAlert(float celcius) {
 
 }
 
-void alertInCelcius(float farenheit,int (*networkAlertFuncPointer) (float)) {
+float ConvertFarenHeitToCelcius(float farenheit) {
     float celcius = (farenheit - 32) * 5 / 9;
+    return celcius;
+}
+
+void alertInCelcius(float farenheit, float (*ConvertFarenHeitToCelciusFunPtr)(float), int (*networkAlertFuncPointer) (float)) {
+    float celcius = ConvertFarenHeitToCelciusFunPtr(farenheit);
     int returnCode = networkAlertFuncPointer(celcius);
     if (returnCode != 200) {
         // non-ok response is not an error! Issues happen in life!
@@ -48,13 +60,16 @@ void alertInCelcius(float farenheit,int (*networkAlertFuncPointer) (float)) {
 }
 
 int main() {
+    float (*ConvertFarenHeitToCelciusFunPtr)(float);
     int (*networkAlertFuncPointer)(float);
+    ConvertFarenHeitToCelciusFunPtr = ConvertFarenHeitToCelcius;
     networkAlertFuncPointer = networkAlert;
     alertInCelcius(400.5,networkAlertFuncPointer);
     assert(alertFailureCount==1);
     alertInCelcius(303.6,networkAlertFuncPointer);
     assert(alertFailureCount==2);
     printf("%d alerts failed.\n", alertFailureCount);
+    ConvertFarenHeitToCelciusFunPtr = ConvertFarenHeitToCelciusStub;
     networkAlertFuncPointer = networkAlertStub;
     alertInCelcius(400.5,networkAlertFuncPointer);
     assert(AlertStubCalled == true); /* Stub is correct so this assert check passes */
