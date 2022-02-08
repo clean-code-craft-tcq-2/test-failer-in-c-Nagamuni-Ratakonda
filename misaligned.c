@@ -22,8 +22,8 @@ ColorPair CopyColorPairs_Stub(int pairNumber, int majorColourIndex, int minorCol
     colorPair.majorColour = majorColor[majorColourIndex];
     colorPair.minorColour = minorColor[minorColourIndex];
     assert(colorPair.pairNumber == pairNumber);
-    assert(colorPair.majorColour == majorColourIndex);
-    assert(colorPair.minorColour == minorColourIndex);
+    assert(colorPair.majorColour == majorColor[majorColourIndex]);
+    assert(colorPair.minorColour == minorColor[minorColourIndex]);
     
     return colorPair;
 }
@@ -52,7 +52,7 @@ int printColorMap(ColorPair (*CopyColorPairs_FunctionPtr)(int,int,int)) {
 int main() {
     int result = 0;
     int result_stub = 0;
-    ColorPair (*CopyColorPairs_FunctionPtr)(int,int,int)
+    ColorPair (*CopyColorPairs_FunctionPtr)(int,int,int);
 
     CopyColorPairs_FunctionPtr = CopyColorPairs;
     result = printColorMap(CopyColorPairs_FunctionPtr);
