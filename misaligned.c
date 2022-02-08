@@ -57,7 +57,7 @@ int printColorMap(void (*CopyColorPairs_FunctionPtr)(int, const char*, const cha
     int i = 0, j = 0;
     for(i = 0; i < 5; i++) {
         for(j = 0; j < 5; j++) {
-            CopyColorPairs_FunctionPtr(i * 5 + j,majorColor[i], minorColor[i],GetColorPairNum_FunctionPtr);
+            CopyColorPairs_FunctionPtr(i * 5 + j,majorColor[i], minorColor[i],ColorPair(*GetColorPairNum_FunctionPtr)(int));
             printf("%d | %s | %s\n", i * 5 + j, majorColor[i], minorColor[i]);
         }
     }
