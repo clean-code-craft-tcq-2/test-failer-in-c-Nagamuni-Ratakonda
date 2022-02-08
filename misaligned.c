@@ -84,14 +84,14 @@ int main() {
     
     GetColorPairNum_FunctionPtr = GetColorFromPairNumber;
     CopyColorPairs_FunctionPtr = CopyColorPairs;
-    PrintColorMapFuncPtr = printColorMap;
-    result = PrintColorMapFuncPtr(CopyColorPairs_FunctionPtr);
+    PrintColorMapFuncPtr = printColorMap(CopyColorPairs_FunctionPtr);
+    result = PrintColorMapFuncPtr;
     assert(result == 25);
     
     GetColorPairNum_FunctionPtr = GetColorFromPairNumber_Stub;
     CopyColorPairs_FunctionPtr = CopyColorPairs_Stub;
-    PrintColorMapFuncPtr = printColorMap_Stub;
-    result = PrintColorMapFuncPtr(CopyColorPairs_FunctionPtr);
+    PrintColorMapFuncPtr = printColorMap_Stub(CopyColorPairs_FunctionPtr);
+    result = PrintColorMapFuncPtr;
     assert(result == 25);
     printf("All is well (maybe!)\n");
     return 0;
