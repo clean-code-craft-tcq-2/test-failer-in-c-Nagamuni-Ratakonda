@@ -13,11 +13,10 @@ const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
 
 ColorPair GetColorFromPairNumber_Stub(int pairNumber);
 void CopyColorPairs_Stub(int pairNumber, const char* majorColourIndex, const char* minorColourIndex, ColorPair(*GetColorPairNum_FunctionPtr)(int));
-int printColorMap_Stub(void (*CopyColorPairs_FunctionPtr)(int, const char*, const char*));
 
 ColorPair GetColorFromPairNumber(int pairNumber);
 void CopyColorPairs(int pairNumber, const char* majorColourIndex, const char* minorColourIndex, ColorPair(*GetColorPairNum_FunctionPtr)(int));
-int printColorMap(void (*CopyColorPairs_FunctionPtr)(int, const char*, const char*));
+int printColorMap(void (*CopyColorPairs_FunctionPtr)(int, const char*, const char*, ColorPair(*GetColorPairNum_FunctionPtr)(int)));
 
 int numberOfMajorColors = sizeof(majorColor) / sizeof(majorColor[0]);
 int numberOfMinorColors = sizeof(minorColor) / sizeof(minorColor[0]);
@@ -38,17 +37,6 @@ void CopyColorPairs_Stub(int pairNumber, const char* majorColourIndex, const cha
     assert(colorPair.minorColour == minorColourIndex);  
 }
 
-int printColorMap_Stub(void (*CopyColorPairs_FunctionPtr)(int, const char*, const char*)) {
-    int i = 0, j = 0;
-    for(i = 0; i < 5; i++) {
-        for(j = 0; j < 5; j++) {
-            CopyColorPairs_FunctionPtr(i * 5 + j,majorColor[i], minorColor[i]);
-            printf("%d | %s | %s\n", i * 5 + j, majorColor[i], minorColor[i]);
-        }
-    }
-    return i * j;
-}
-
 ColorPair GetColorFromPairNumber(int pairNumber) {
     ColorPair colorPair;
     colorPair.pairNumber = pairNumber;
@@ -65,11 +53,11 @@ void CopyColorPairs(int pairNumber, const char* majorColourIndex, const char* mi
     assert(colorPair.minorColour == minorColourIndex);  
 }
 
-int printColorMap(void (*CopyColorPairs_FunctionPtr)(int, const char*, const char*)) {
+int printColorMap(void (*CopyColorPairs_FunctionPtr)(int, const char*, const char*, ColorPair(*GetColorPairNum_FunctionPtr)(int))) {
     int i = 0, j = 0;
     for(i = 0; i < 5; i++) {
         for(j = 0; j < 5; j++) {
-            CopyColorPairs_FunctionPtr(i * 5 + j,majorColor[i], minorColor[i]);
+            CopyColorPairs_FunctionPtr(i * 5 + j,majorColor[i], minorColor[i],GetColorPairNum_FunctionPtr);
             printf("%d | %s | %s\n", i * 5 + j, majorColor[i], minorColor[i]);
         }
     }
@@ -78,20 +66,17 @@ int printColorMap(void (*CopyColorPairs_FunctionPtr)(int, const char*, const cha
 
 int main() {
     int result = 0;
-    int (*PrintColorMapFuncPtr)(void (*CopyColorPairs_FunctionPtr)(int, const char*, const char*));
-    void (*CopyColorPairs_FunctionPtr)(int, const char*, const char*, ColorPair(*GetColorPairNum_FunctionPtr)(int));
     ColorPair(*GetColorPairNum_FunctionPtr)(int);
+    void (*CopyColorPairs_FunctionPtr)(int, const char*, const char*, ColorPair(*GetColorPairNum_FunctionPtr)(int));
     
     GetColorPairNum_FunctionPtr = GetColorFromPairNumber;
     CopyColorPairs_FunctionPtr = CopyColorPairs;
-    PrintColorMapFuncPtr = printColorMap;
-    result = PrintColorMapFuncPtr(void (*CopyColorPairs_FunctionPtr)(int, const char*, const char*));
+    result = printColorMap(CopyColorPairs_FunctionPtr);
     assert(result == 25);
     
     GetColorPairNum_FunctionPtr = GetColorFromPairNumber_Stub;
     CopyColorPairs_FunctionPtr = CopyColorPairs_Stub;
-    PrintColorMapFuncPtr = printColorMap_Stub;
-    result = PrintColorMapFuncPtr(void (*CopyColorPairs_FunctionPtr)(int, const char*, const char*));
+    result = printColorMap(CopyColorPairs_FunctionPtr);
     assert(result == 25);
     printf("All is well (maybe!)\n");
     return 0;
