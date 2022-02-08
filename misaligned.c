@@ -11,8 +11,8 @@ typedef struct
 const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
 const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
 
-ColorPair GetColorFromPairNumber_Stub(int pairNumber)
-void CopyColorPairs_Stub(int pairNumber, const char* majorColourIndex, const char* minorColourIndex, ColorPair(*GetColorPairNum_FunctionPtr)(int))
+ColorPair GetColorFromPairNumber_Stub(int pairNumber);
+void CopyColorPairs_Stub(int pairNumber, const char* majorColourIndex, const char* minorColourIndex, ColorPair(*GetColorPairNum_FunctionPtr)(int));
 int printColorMap_Stub(void (*CopyColorPairs_FunctionPtr)(int, const char*, const char*));
 
 ColorPair GetColorFromPairNumber(int pairNumber);
